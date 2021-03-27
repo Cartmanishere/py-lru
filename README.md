@@ -1,4 +1,4 @@
-# LRU Cache in Python
+# LRU Cache in Python ![Tests status](https://github.com/Cartmanishere/py-lru/actions/workflows/python-package.yml/badge.svg)
 
 A simple implementation of LRU cache in Python for learning purposes.
 
