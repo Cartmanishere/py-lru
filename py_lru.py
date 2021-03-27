@@ -9,6 +9,47 @@ class Node:
         return f'({self.key + ":" if self.key else ""}{self.val})'
 
 
+class LinkedList:
+    def __init__(self):
+        self.root = Node('HEAD')
+
+    def __repr__(self):
+        s = ''
+        n = self.root
+        while n is not None:
+            s += n + '-> '
+            n = n.right
+        return s
+
+    def __iter__(self):
+        node = self.root.right
+        while node is not None:
+            yield node.val
+
+    def insert_left(self, value):
+        n = Node(value)
+        head = self.root
+        t = head.right
+        head.right = n
+        n.right = t
+
+    def insert_right(self, value):
+        n = Node(value)
+        ptr = self.root
+        while ptr.right is not None:
+            ptr = ptr.right
+        ptr.right = n
+
+    def delete(self, value):
+        n = self.root
+        while n.right is not None:
+            if n.right.val == value:
+                break
+            n = n.right
+
+        if n.right is not None:
+            n.right = n.right.right
+
 
 class DoublyLinkedList:
     def __init__(self):
