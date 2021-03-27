@@ -94,3 +94,36 @@ class DoublyLinkedList:
             t.right.left = ptr
             self.count -= 1
 
+
+class LRUCache:
+    def __init__(self, max_slots):
+        self.hash = {}
+        self.dll = DoublyLinkedList()
+        self.max_slots = max_slots
+
+    def __repr__(self):
+        return self.dll.__repr__()
+
+    def __iter__(self):
+        yield from self.dll.__iter__()
+
+    def __setitem__(self, key, value):
+        if self.dll.count >= self.max_slots:
+            popped = self.dll.pop_left()
+            del self.hash[popped.key]
+
+        n = self.dll.insert_right(value, k=key)
+        self.hash[key] = n
+        return value
+
+    def __getitem__(self, key):
+        n = self.hash.get(key, None)
+        if n is not None:
+            self.dll.delete_node(n)
+            new_n = self.dll.insert_right(n.val, k=key)
+            self.hash[key] = new_n
+            return n.val
+        return None
+
+    def __len__(self):
+        return self.dll.__len__()
